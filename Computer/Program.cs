@@ -1,4 +1,4 @@
-
+using Computer.Models;
 namespace Computer
 {
     public class Program
@@ -6,6 +6,8 @@ namespace Computer
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<ComputerShopDBContext>();
 
             // Add services to the container.
 
