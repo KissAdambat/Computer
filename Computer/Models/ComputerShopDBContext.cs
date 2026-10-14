@@ -12,6 +12,7 @@ namespace Computer.Models
         }
 
         public DbSet<Osystem> Osystems { get; set; }
+        public DbSet<Computer> Computers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySQL("server=localhost;user=root;password=;database=computer");

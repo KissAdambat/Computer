@@ -19,6 +19,38 @@ namespace Computer.Migrations
                 .HasAnnotation("ProductVersion", "10.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("Computer.Models.Computer", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<float>("Display")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Memory")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("OsId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("varchar(40)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("OsId");
+
+                    b.ToTable("Computers");
+                });
+
             modelBuilder.Entity("Computer.Models.Osystem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -42,6 +74,22 @@ namespace Computer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Osystems");
+                });
+
+            modelBuilder.Entity("Computer.Models.Computer", b =>
+                {
+                    b.HasOne("Computer.Models.Osystem", "Os")
+                        .WithMany("Computers")
+                        .HasForeignKey("OsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Os");
+                });
+
+            modelBuilder.Entity("Computer.Models.Osystem", b =>
+                {
+                    b.Navigation("Computers");
                 });
 #pragma warning restore 612, 618
         }

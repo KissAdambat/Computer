@@ -11,5 +11,6 @@ namespace Computer.Models
         public int Version { get; set; }
         public DateTime RegisterTime { get; set; }
         public DateTime UpDateTime { get; set; }
+        public ICollection<Computer> Computers { get; set; }
     }
 }
