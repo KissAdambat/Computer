@@ -16,6 +16,7 @@ namespace Computer.Models
         public double Display { get; set; }
         public int Memory { get; set; }
         public DateTime CreatedTime { get; set; }
-        public Osystem Os { get; set; }
+        [Column("OsId")]
+        public string Os { get; set; }
     }
 }
