@@ -32,23 +32,25 @@ namespace Computer.Controllers
         }
 
         [HttpPost("AddComputer")]
-        public object AddComputer(AddNewComputerDTOs dto)
+        public object AddComputer([FromBody]AddNewComputerDTOs dto)
         {
-            var osdi = dto.Os;
-            var dii = Context.Osystems.FirstOrDefault(u => u.Id == osdi.Id);
-            var rcont = dii.Id.ToString();  
             var comp = new Models.Computer
             {
+                 id = Guid.NewGuid(),
                  Brand = dto.Brand,
                  Type = dto.Type,
                  Display = dto.Display,
                  Memory = dto.Memory,
-                 Os = rcont,
+                 OsId = dto.OsId,
                  CreatedTime = DateTime.Now
             };
-            Context.Computers.Add(comp);
-            Context.SaveChanges();
-            return StatusCode(201, new { message = "Sikeres hozzáadás:", result = comp });
+            if (comp != null)
+            {
+                Context.Computers.Add(comp);
+                Context.SaveChanges();
+                return StatusCode(201, new { message = "Sikeres hozzáadás:", result = comp });
+            }
+            else { return NotFound(); }
         }
 
         [HttpPut("UpdateComputer/{id}")]
